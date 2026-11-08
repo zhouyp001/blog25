@@ -291,6 +291,21 @@ ul { list-style: none; margin: 0; padding: 0; }
 
 .markdown-body img { max-width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--border-color); cursor: zoom-in; display: block; margin: 24px auto; }
 
+/* 行内公式图片（LaTeX / codecogs）：与文字同排，不影响行高 */
+.markdown-body img.inline-formula {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 4px;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+/* 可选：暗色模式下的公式图片反色，避免黑字看不见 */
+[data-theme='dark'] .markdown-body img.inline-formula {
+  filter: invert(1) hue-rotate(180deg);
+}
+
 .markdown-body blockquote { margin: 0 0 20px; padding: 12px 20px; color: var(--text-muted); border-left: 4px solid var(--accent); background: var(--accent-soft); border-radius: 0 8px 8px 0; }
 .markdown-body blockquote > :last-child { margin-bottom: 0; }
 

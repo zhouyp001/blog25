@@ -66,6 +66,13 @@ DOMPurify.addHook('afterSanitizeAttributes', (node) => {
     const src = node.getAttribute('src')
     if (src) node.setAttribute('src', resolveImage(src))
     node.setAttribute('loading', 'lazy')
+
+    // ---- 识别行内公式图片（LaTeX / codecogs），后续由 CSS 以 inline-block 显示 ----
+    const alt = node.getAttribute('alt') || ''
+    if (/\\[a-zA-Z]+/.test(alt) || /codecogs\.com/i.test(src || '')) {
+      node.classList.add('inline-formula')
+    }
+    // ------------------------------------------------------------------------------
   }
   if (node.tagName === 'A') {
     node.setAttribute('target', '_blank')

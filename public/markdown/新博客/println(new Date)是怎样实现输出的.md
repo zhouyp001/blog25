@@ -1,8 +1,8 @@
 ﻿### System.out.pintln(new Date())是怎样实现的
 1. 首先System是java.lang包里面的类  
-2. System类里面有一个out的静态变量(静态变量的类型是PrintsStream)![System的静态变量](https://img-blog.csdnimg.cn/20190620212543663.png)
+2. System类里面有一个out的静态变量(静态变量的类型是PrintsStream)
 3. PrintsString是java.io包里面的类
-4. pintln方法有10个，这里的是prinln(Object o)的方法![在这里插入图片描述](https://img-blog.csdnimg.cn/20190620213011775.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2tlX3lpXw==,size_16,color_FFFFFF,t_70)
+4. pintln方法有10个，这里的是prinln(Object o)的方法
 所以要想知道是怎么实现的，就需要知道prinln（Object o）是怎样实现的。
 ### 寻找真正的println(Object o)
 1. 查看prinln（Object o）
