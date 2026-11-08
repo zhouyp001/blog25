@@ -13,13 +13,6 @@ Vue 3 + Vite + marked 的静态笔记站。
 4. `npm run dev` 本地预览（会先自动生成 `public/articles.json`）
 5. `npm run build` 产出 `dist/`
 
-## 部署到 GitHub Pages
-
-- 根站点（`<user>.github.io`）：`npm run build` 即可。
-- 项目页（`<user>.github.io/<repo>/`）：`BASE_PATH=/<repo>/ npm run build`，
-  或在 GitHub Actions 里设置环境变量 `BASE_PATH`。
-
-在 `src/config.js` 中填写 `github` 字段即可显示仓库入口。
 
 ## 正文搜索的扩展
 
