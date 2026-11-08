@@ -8,9 +8,13 @@
         @navigate="drawerOpen = false"
       />
       <div v-if="drawerOpen" class="drawer-mask" @click="drawerOpen = false"></div>
-      
+
       <main class="app-main">
-        <router-view />
+        <router-view v-slot="{ Component }">
+          <transition name="page" mode="out-in">
+            <component :is="Component" :key="$route.fullPath" />
+          </transition>
+        </router-view>
       </main>
     </div>
     <BackToTop />

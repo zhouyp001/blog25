@@ -4,7 +4,7 @@
 
     <div v-if="!loaded" class="status">加载中…</div>
     <div v-else-if="!article" class="status">文章不存在或已被移动</div>
-    
+
     <div v-else class="reader-layout">
       <div class="reader-main">
         <nav class="breadcrumb">
@@ -19,7 +19,8 @@
 
         <h1 class="reader-title">{{ article.title }}</h1>
         <p class="reader-meta">
-          {{ article.wordCount }} 字 · 约 {{ article.readingMinutes }} 分钟阅读
+          <span class="meta-chip">📝 {{ article.wordCount }} 字</span>
+          <span class="meta-chip">⏱️ 约 {{ article.readingMinutes }} 分钟</span>
         </p>
 
         <MarkdownViewer

@@ -2,7 +2,10 @@
   <header class="app-header">
     <div class="header-inner">
       <button class="nav-toggle-btn" aria-label="打开目录" @click="$emit('toggle-nav')">☰</button>
-      <router-link to="/" class="brand">{{ config.title }}</router-link>
+      <router-link to="/" class="brand">
+        <span class="brand-mark">K</span>
+        <span class="brand-text">{{ config.title }}</span>
+      </router-link>
 
       <div class="search-wrap" ref="searchWrap">
         <span class="search-icon">🔍</span>

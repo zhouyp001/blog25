@@ -1,4 +1,4 @@
-# ke_yi 的笔记
+# ke_yi_ 的笔记
 
 Vue 3 + Vite + marked 的静态笔记站。
 
@@ -12,7 +12,6 @@ Vue 3 + Vite + marked 的静态笔记站。
 3. `npm install`
 4. `npm run dev` 本地预览（会先自动生成 `public/articles.json`）
 5. `npm run build` 产出 `dist/`
-
 
 ## 正文搜索的扩展
 
