@@ -1,0 +1,1 @@
+certutil -hashfile 路径+文件名 MD5
