@@ -1,7 +1,7 @@
 {
   "name": "ke-yi-blog",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "index": "node scripts/generate-index.mjs",

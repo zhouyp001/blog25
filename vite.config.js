@@ -1,8 +1,10 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
-// 根站点用 '/'；项目页用 '/<repo>/'，也可以在构建时用 BASE_PATH 环境变量覆盖
+// 根站点：BASE_PATH 不设，base 为 '/'
+// 项目页：构建时设置 BASE_PATH=/仓库名/
 export default defineConfig({
   base: process.env.BASE_PATH || '/',
-  plugins: [vue()]
+  plugins: [vue()],
+  server: { port: 5173 }
 })

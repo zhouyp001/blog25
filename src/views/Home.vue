@@ -1,45 +1,39 @@
 <template>
-  <div v-if="loading" class="status">加载目录中…</div>
-  <div v-else-if="error" class="status error">加载文章索引失败：{{ error }}</div>
-  <div v-else>
-    <section v-for="group in groups" :key="group.category" class="category">
-      <h2>{{ group.category }} <small>({{ group.items.length }})</small></h2>
-      <ul>
-        <li v-for="item in group.items" :key="item.path">
-          <router-link :to="{ path: '/read', query: { p: item.url } }">
-            {{ item.title }}
-          </router-link>
-        </li>
-      </ul>
-    </section>
+  <div class="home">
+    <header class="home-hero">
+      <h1>{{ config.title }}</h1>
+      <p class="hero-desc">{{ config.description }}</p>
+      <p class="hero-meta">{{ articles.length }} 篇 · {{ categories.length }} 个分类</p>
+    </header>
+
+    <div v-if="!loaded" class="status">加载目录中…</div>
+    <div v-else class="category-grid">
+      <router-link
+        v-for="c in categories"
+        :key="c.name"
+        class="category-card"
+        :to="{ path: '/category', query: { c: c.name } }"
+      >
+        <div class="card-head">
+          <span class="card-name">{{ c.name }}</span>
+          <span class="card-count">{{ c.count }}</span>
+        </div>
+        <p class="card-desc">
+          {{ c.keywords.length ? c.keywords.join(' · ') : '查看全部文章' }}
+        </p>
+      </router-link>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { onMounted } from 'vue'
+import { siteConfig as config } from '../config'
+import { useArticles } from '../composables/useArticles'
 
-const articles = ref([])
-const loading = ref(true)
-const error = ref(null)
+const { articles, categories, loaded, load } = useArticles()
 
-const groups = computed(() => {
-  const map = new Map()
-  for (const a of articles.value) {
-    if (!map.has(a.category)) map.set(a.category, [])
-    map.get(a.category).push(a)
-  }
-  return [...map.entries()].map(([category, items]) => ({ category, items }))
-})
-
-onMounted(async () => {
-  try {
-    const res = await fetch(`${import.meta.env.BASE_URL}articles.json`)
-    if (!res.ok) throw new Error(`HTTP ${res.status}`)
-    articles.value = await res.json()
-  } catch (e) {
-    error.value = e.message
-  } finally {
-    loading.value = false
-  }
+onMounted(() => {
+  load()
 })
 </script>
