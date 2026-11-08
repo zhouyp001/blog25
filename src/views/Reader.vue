@@ -4,6 +4,7 @@
 
     <div v-if="!loaded" class="status">加载中…</div>
     <div v-else-if="!article" class="status">文章不存在或已被移动</div>
+    
     <div v-else class="reader-layout">
       <div class="reader-main">
         <nav class="breadcrumb">
@@ -18,7 +19,7 @@
 
         <h1 class="reader-title">{{ article.title }}</h1>
         <p class="reader-meta">
-          {{ article.wordCount }} 字 · 约 {{ article.readingMinutes }} 分钟
+          {{ article.wordCount }} 字 · 约 {{ article.readingMinutes }} 分钟阅读
         </p>
 
         <MarkdownViewer
@@ -126,7 +127,7 @@ function onScroll() {
 function scrollTo(id) {
   const node = document.getElementById(id)
   if (!node) return
-  const top = node.getBoundingClientRect().top + window.scrollY - 72
+  const top = node.getBoundingClientRect().top + window.scrollY - 96
   window.scrollTo({ top, behavior: 'smooth' })
 }
 

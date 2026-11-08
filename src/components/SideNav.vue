@@ -1,5 +1,5 @@
 <template>
-  <nav class="side-nav">
+  <nav class="side-nav" :class="{ 'drawer-open': drawerOpen }">
     <div v-for="c in categories" :key="c.name" class="nav-category">
       <button class="nav-toggle" @click="toggle(c.name)">
         <span class="chev" :class="{ open: isOpen(c.name) }">▸</span>
@@ -9,7 +9,7 @@
       <div v-show="isOpen(c.name)" class="nav-body">
         <template v-for="group in groupOf(c)" :key="group.sub || '__root'">
           <div v-if="group.sub" class="nav-sub">{{ group.sub }}</div>
-          <ul class="nav-items">
+          <ul>
             <li v-for="a in group.items" :key="a.path">
               <router-link
                 class="nav-link"
@@ -31,6 +31,10 @@ import { useRoute } from 'vue-router'
 import { useArticles } from '../composables/useArticles'
 
 defineEmits(['navigate'])
+
+const props = defineProps({
+  drawerOpen: { type: Boolean, default: false }
+})
 
 const route = useRoute()
 const { articles, categories, load } = useArticles()

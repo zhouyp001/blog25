@@ -2,16 +2,16 @@
   <header class="app-header">
     <div class="header-inner">
       <button class="nav-toggle-btn" aria-label="打开目录" @click="$emit('toggle-nav')">☰</button>
-
       <router-link to="/" class="brand">{{ config.title }}</router-link>
 
       <div class="search-wrap" ref="searchWrap">
+        <span class="search-icon">🔍</span>
         <input
           ref="searchInput"
           v-model="query"
           class="search-input"
           type="search"
-          placeholder="搜索笔记…"
+          placeholder="搜索笔记 (Ctrl+K)"
           @focus="open = true"
           @keydown.down.prevent="move(1)"
           @keydown.up.prevent="move(-1)"
@@ -19,7 +19,7 @@
           @keydown.esc="close"
         />
         <div v-if="open && query.trim()" class="search-panel">
-          <div v-if="!results.length" class="search-empty">没有匹配结果</div>
+          <div v-if="!results.length" class="search-empty">没有找到相关结果</div>
           <ul v-else>
             <li
               v-for="(r, i) in results"
@@ -32,7 +32,6 @@
               <div class="result-meta">
                 {{ r.category }}<template v-if="r.sub"> / {{ r.sub }}</template>
               </div>
-              <div v-if="r.snippet" class="result-snippet">{{ r.snippet }}</div>
             </li>
           </ul>
         </div>
@@ -41,10 +40,10 @@
       <div class="header-actions">
         <button
           class="icon-btn"
-          :title="theme === 'dark' ? '切换到浅色' : '切换到暗色'"
+          :title="theme === 'dark' ? '切换到浅色模式' : '切换到深色模式'"
           @click="toggleTheme"
         >
-          {{ theme === 'dark' ? '☀' : '☾' }}
+          {{ theme === 'dark' ? '☀️' : '🌙' }}
         </button>
         <a
           v-if="config.github"
@@ -52,8 +51,7 @@
           :href="config.github"
           target="_blank"
           rel="noopener noreferrer"
-          title="GitHub"
-        >GitHub</a>
+        >Github</a>
       </div>
     </div>
   </header>
@@ -88,19 +86,12 @@ const results = computed(() => {
     const sub = (a.sub || '').toLowerCase()
     const ex = (a.excerpt || '').toLowerCase()
     let score = 0
-    let snippet = ''
     if (title.includes(q)) score = 100
     else if (sub.includes(q) || cat.includes(q)) score = 50
-    else if (ex.includes(q)) {
-      score = 20
-      const idx = ex.indexOf(q)
-      snippet = a.excerpt.slice(Math.max(0, idx - 20), idx + 60)
-    }
-    if (score) scored.push({ ...a, score, snippet })
+    else if (ex.includes(q)) score = 20
+    if (score) scored.push({ ...a, score })
   }
-  return scored
-    .sort((a, b) => b.score - a.score || a.title.localeCompare(b.title, 'zh'))
-    .slice(0, 8)
+  return scored.sort((a, b) => b.score - a.score || a.title.localeCompare(b.title, 'zh')).slice(0, 8)
 })
 
 function move(delta) {

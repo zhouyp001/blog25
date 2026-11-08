@@ -4,11 +4,12 @@
     <div class="app-body">
       <SideNav
         v-if="showSidebar"
-        :class="{ 'drawer-open': drawerOpen }"
+        :drawer-open="drawerOpen"
         @navigate="drawerOpen = false"
       />
       <div v-if="drawerOpen" class="drawer-mask" @click="drawerOpen = false"></div>
-      <main class="app-main" :class="{ 'has-sidebar': showSidebar }">
+      
+      <main class="app-main">
         <router-view />
       </main>
     </div>

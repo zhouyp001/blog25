@@ -3,7 +3,11 @@
     <header class="home-hero">
       <h1>{{ config.title }}</h1>
       <p class="hero-desc">{{ config.description }}</p>
-      <p class="hero-meta">{{ articles.length }} 篇 · {{ categories.length }} 个分类</p>
+      <div class="hero-meta">
+        <span>共 {{ articles.length }} 篇笔记</span>
+        <span>·</span>
+        <span>{{ categories.length }} 个分类</span>
+      </div>
     </header>
 
     <div v-if="!loaded" class="status">加载目录中…</div>
@@ -16,7 +20,7 @@
       >
         <div class="card-head">
           <span class="card-name">{{ c.name }}</span>
-          <span class="card-count">{{ c.count }}</span>
+          <span class="card-count">{{ c.count }} 篇</span>
         </div>
         <p class="card-desc">
           {{ c.keywords.length ? c.keywords.join(' · ') : '查看全部文章' }}

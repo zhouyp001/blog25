@@ -4,3 +4,5 @@ dist/
 public/articles.json
 .DS_Store
 *.log
+.project_context/
+PROJECT_CONTEXT.md
